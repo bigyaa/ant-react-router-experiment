@@ -1,49 +1,58 @@
-import React from 'react';
+import React, {Fragment, useState} from 'react';
 import {BrowserRouter, Route} from "react-router-dom";
-import {Steps, Divider} from 'antd';
+import {Steps, Divider, Row, Col} from 'antd';
 import {Link} from 'react-router-dom';
-import Content from "./components/Content";
+import WrappedLoginForm from "./components/LoginForm";
 import ContentBlank from "./components/ContentBlank";
 import ContentActive from "./components/ContentActive";
 
-class App extends React.Component {
-    state = {
-        current: 0,
+function App() {
+    const [current, setCurrent] = useState(0);
+    const onChange = e => {
+        setCurrent(e);
     };
+    const {Step} = Steps;
 
-    onChange = e => {
-        this.setState({current: e});
-    }
+    return (
+        <Fragment>
+            <BrowserRouter>
+                <Steps current={current} onChange={e => {
+                    onChange(e)
+                }}>
+                    <Step title="First Link" description="I always come first.">
+                    </Step>
+                    <Step title="Second Link" description="I always come second.">
+                    </Step>
+                    <Step title="Third Link" description="I always come third.">
+                    </Step>
+                </Steps>
 
-    render() {
-        const {Step} = Steps;
-        const {current} = this.state;
+                <Divider/>
+                <Row style={{textAlign:"center"}}>
+                    <Col span={8}>
+                        <Link to={'/'} onClick={() => {
+                            setCurrent(0);
+                        }}> Link 1 </Link>
+                    </Col>
+                    <Col span={8}>
+                        <Link to={'/shiny'} onClick={() => {
+                            setCurrent(1);
+                        }}> Link 2 </Link>
+                    </Col>
+                    <Col span={8}>
+                        <Link to={'/blank'} onClick={() => {
+                            setCurrent(2);
+                        }}> Link 3 </Link>
+                    </Col>
+                </Row>
+                <Divider/>
 
-        return (
-            <>
-                <BrowserRouter>
-                    <Divider/>
-                    <Steps current={current} onChange={this.onChange}>
-                        <Step title="First" description="I always come first.">
-                            <Link to='/blank' />
-                        </Step>
-                        <Step title="Second" description="I always come second.">
-                            <Link to='/' />
-                        </Step>
-                        <Step title="Third" description="I always come third.">
-                            <Link to='/shiny' />
-                        </Step>
-                    </Steps>
-
-                    <Route exact path='/' component={Content} />
-                    <Route path='/blank' component={ContentBlank} />
-                    <Route exact path='/shiny' component={ContentActive} />
-
-                </BrowserRouter>
-
-            </>
-        );
-    }
+                <Route exact path='/' component={WrappedLoginForm}/>
+                <Route path='/blank' component={ContentBlank}/>
+                <Route exact path='/shiny' component={ContentActive}/>
+            </BrowserRouter>
+        </Fragment>
+    );
 }
 
 export default App;

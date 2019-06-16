@@ -1,15 +1,40 @@
 import React from 'react';
-import {Divider} from 'antd';
+import {Table} from 'antd';
 
-class ContentBlank extends React.Component {
-    render() {
+function ContentBlank(){
+        const columns = [
+            {
+                title: 'Name',
+                dataIndex: 'name'
+            },
+            {
+                title: 'Age',
+                dataIndex: 'age'
+            },
+            {
+                title: 'Address',
+                dataIndex: 'address'
+            }
+        ];
+        const dataSources = [
+            {
+                key: 1,
+                name: 'Bigya',
+                age: 21,
+                address: 'Lalitpur'
+            },
+            {
+                key: 2,
+                name: 'Another Bigya',
+                age: 21,
+                address: 'Lalitpur'
+            }
+        ];
         return (
             <>
-                <Divider/>
-                <Divider/>
+                <Table columns={columns} dataSource={dataSources} />
             </>
         );
-    }
 }
 
 export default ContentBlank;

@@ -1,9 +1,7 @@
 import React from 'react';
 import {Skeleton, Divider} from 'antd';
 
-class ContentActive extends React.Component {
-
-    render() {
+function ContentActive(){
         return (
             <>
                 <Skeleton avatar paragraph={{rows: 3}} active />
@@ -13,7 +11,6 @@ class ContentActive extends React.Component {
                 <Skeleton avatar paragraph={{rows: 3}} active />
             </>
         );
-    }
 }
 
 export default ContentActive;
